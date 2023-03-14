@@ -12,6 +12,7 @@
         </style>
     </head>
     <body>
+        <var liczba="1"> </var>
        <p>Imię: <input id="firstname" type="text" ></input></p> 
        <p>Nazwisko: <input id="lastname" type="text"></input></p>
         <p>Mail: <input id="email" type="email"></input></p>
@@ -23,14 +24,60 @@
         <button type="button" id="generate" onclick="myFunction()">Generuj dane!</button>
 
         <script>
+            var liczba = 1
             function myFunction() {
-              document.getElementById("firstname").value = "Jacek";
+                if (liczba==1) {
+                    document.getElementById("firstname").value = "Jacek";
               document.getElementById("lastname").value = "Banek";
               document.getElementById("email").value = "jb@gmail.com";
               document.getElementById("zip").value = "90-000";
               document.getElementById("nip").value = "022-41-11-111";
               document.getElementById("www").value = "https://www.jacek.pl";
               document.getElementById("phone").value = "728727147";
+                }
+                else if(liczba==2)
+                {
+            document.getElementById("firstname").value = "Jacek";
+              document.getElementById("lastname").value = "Banek";
+              document.getElementById("email").value = "jb@gmail.com";
+              document.getElementById("zip").value = "90-000";
+              document.getElementById("nip").value = "022-41-11-111";
+              document.getElementById("www").value = "https://www.jacek.pl";
+              document.getElementById("phone").value = "728727147";
+            
+                }
+                else if(liczba==3)
+                {
+                document.getElementById("firstname").value = "Jacek";
+              document.getElementById("lastname").value = "Banek";
+              document.getElementById("email").value = "jb@gmail.com";
+              document.getElementById("zip").value = "90-000";
+              document.getElementById("nip").value = "022-41-11-111";
+              document.getElementById("www").value = "https://www.jacek.pl";
+              document.getElementById("phone").value = "728727147";
+                }
+                else if(liczba==4)
+                {
+                document.getElementById("firstname").value = "Jacek";
+              document.getElementById("lastname").value = "Banek";
+              document.getElementById("email").value = "jb@gmail.com";
+              document.getElementById("zip").value = "90-000";
+              document.getElementById("nip").value = "022-41-11-111";
+              document.getElementById("www").value = "https://www.jacek.pl";
+              document.getElementById("phone").value = "728727147";
+                }
+                else if(liczba==5)
+                {
+                    document.getElementById("firstname").value = "Jacek";
+              document.getElementById("lastname").value = "Banek";
+              document.getElementById("email").value = "jb@gmail.com";
+              document.getElementById("zip").value = "90-000";
+              document.getElementById("nip").value = "022-41-11-111";
+              document.getElementById("www").value = "https://www.jacek.pl";
+              document.getElementById("phone").value = "728727147";
+              liczba = 0;
+                }
+             liczba = liczba +1;
             }
             </script>
     </body>
