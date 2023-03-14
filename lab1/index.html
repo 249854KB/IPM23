@@ -1,8 +1,29 @@
 <html>
     <head>
-        Blablalblbalbalballba
+        Laboratorium 1
     </head>
     <body>
+       <p>Imię: <input id="firstname"></input></p> 
+       <p>Nazwisko: <input id="lastname"></input></p>
+        <p>Mail: <input id="email"></input></p>
+        <p>Kod pocztowy: <input id="zip"></input></p>
+        <p>NIP: <input id="nip"></input></p>
+        <p>Strona: <input id="www"></input></p>
+        <p>Tel: <input id="phone"></input></p>
         <!-- the content goes here -->
+        <button type="button" id="generate" onclick="myFunction()">Generuj dane!</button>
+
+        <script>
+            function myFunction() {
+              document.getElementById("firstname").innerHTML = "Jacek";
+              document.getElementById("lastname").innerHTML = "Jacek";
+              document.getElementById("email").innerHTML = "Jacek";
+              document.getElementById("zip").innerHTML = "Jacek";
+              document.getElementById("nip").innerHTML = "Jacek";
+              document.getElementById("www").innerHTML = "Jacek";
+              document.getElementById("text").innerHTML = "Jacek";
+              
+            }
+            </script>
     </body>
 </html>
