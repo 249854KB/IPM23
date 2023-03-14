@@ -14,8 +14,8 @@
     <body>
        <p>Imię: <input id="firstname" type="text" ></input></p> 
        <p>Nazwisko: <input id="lastname" type="text"></input></p>
-        <p>Mail: <input id="email"></input></p>
-        <p>Kod pocztowy: <input id="zip" type="email" pattern="^\d{2}-\d{3}$"></input></p>
+        <p>Mail: <input id="email" type="email"></input></p>
+        <p>Kod pocztowy: <input id="zip" type="text" pattern="^\d{2}-\d{3}$"></input></p>
         <p>NIP: <input id="nip" pattern="^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$"></input></p>
         <p>Strona: <input id="www" type="url"></input></p>
         <p>Tel: <input id="phone" type="number"></input></p>
@@ -28,10 +28,9 @@
               document.getElementById("lastname").value = "Banek";
               document.getElementById("email").value = "jb@gmail.com";
               document.getElementById("zip").value = "90-000";
-              document.getElementById("nip").value = "1234567890";
-              document.getElementById("www").value = "www.jacek.pl";
+              document.getElementById("nip").value = "022-41-11-111";
+              document.getElementById("www").value = "https://www.jacek.pl";
               document.getElementById("phone").value = "728727147";
-              
             }
             </script>
     </body>
