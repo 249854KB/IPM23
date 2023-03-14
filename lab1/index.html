@@ -1,21 +1,30 @@
 <html>
     <head>
         Laboratorium 1
+        <style>
+            input:valid {
+                border-color: green;
+            }
+            input:invalid
+            {
+                border-color: red;
+            }
+        </style>
     </head>
     <body>
-       <p>Imię: <input id="firstname"></input></p> 
-       <p>Nazwisko: <input id="lastname"></input></p>
+       <p>Imię: <input id="firstname" type="text" ></input></p> 
+       <p>Nazwisko: <input id="lastname" type="text"></input></p>
         <p>Mail: <input id="email"></input></p>
         <p>Kod pocztowy: <input id="zip"></input></p>
         <p>NIP: <input id="nip"></input></p>
-        <p>Strona: <input id="www"></input></p>
-        <p>Tel: <input id="phone"></input></p>
+        <p>Strona: <input id="www" type="url"></input></p>
+        <p>Tel: <input id="phone" type="number"></input></p>
         <!-- the content goes here -->
         <button type="button" id="generate" onclick="myFunction()">Generuj dane!</button>
 
         <script>
             function myFunction() {
-              document.getElementById("firstname").innerHTML = "Jacek";
+              document.getElementById("firstname").title = "Jacek";
               document.getElementById("lastname").innerHTML = "Jacek";
               document.getElementById("email").innerHTML = "Jacek";
               document.getElementById("zip").innerHTML = "Jacek";
