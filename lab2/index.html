@@ -58,8 +58,8 @@
   <form>
     <ul>
       <li>
-        <label for="ipv4">Imię</label>
-        <input id="ipv4" type="text"></input>
+        <label for="ipv4">IPV4</label>
+        <input id="ipv4" type="text" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></input>
       </li>
       <li>
         <label for="webpage">Strona</label>
@@ -79,7 +79,7 @@
       </li>
       <li>
         <label for="linuxpath">Ścieżka Linux</label>
-        <input id="linuxpath" type="text"></input>
+        <input id="linuxpath" type="text" pattern="^/|(/[a-zA-Z0-9_-]+)+$"></input>
       </li>
       <li>
         <label for="phone">Telefon</label>
