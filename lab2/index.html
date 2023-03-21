@@ -71,7 +71,7 @@
       </li>
       <li>
         <label for="winpath1">Ścieżka windows lowercase</label>
-        <input id="winpath1" type="text" pattern="^\d{2}-\d{3}$"></input>
+        <input id="winpath1" type="text" pattern="[a-zA-Z]:[\\\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+\.txt)"></input>
       </li>
       <li>
         <label for="winpath2">Ścieżka windows allcase</label>
@@ -79,7 +79,7 @@
       </li>
       <li>
         <label for="linuxpath">Ścieżka Linux</label>
-        <input id="linuxpath" type="text" pattern="^/|(/[a-zA-Z0-9_-]+)+$"></input>
+        <input id="linuxpath" type="text" pattern="^()\/([^\/]+)$"></input>
       </li>
       <li>
         <label for="phone">Telefon</label>
@@ -95,50 +95,50 @@
     var liczba = 1
     function myFunction() {
       if (liczba == 1) {
-        document.getElementById("firstname").value = "kacper";
-        document.getElementById("lastname").value = "Banek";
+        document.getElementById("ipv4").value = "10.1.1.200";
+        document.getElementById("webpage").value = "https://www.jacek.pl";
         document.getElementById("email").value = "jb@gmail.com";
-        document.getElementById("zip").value = "90-000";
-        document.getElementById("nip").value = "022-41-11-111";
-        document.getElementById("www").value = "https://www.jacek.pl";
-        document.getElementById("phone").value = "728727147";
+        document.getElementById("winpath1").value = "c:\\windows\\temp";
+        document.getElementById("winpath2").value = "C:\\Windows\\temp";
+        document.getElementById("linuxpath").value = "/etc/process";
+        document.getElementById("phone").value = "123456789";
       }
       else if (liczba == 2) {
-        document.getElementById("firstname").value = "Damian";
-        document.getElementById("lastname").value = "Banek";
+        document.getElementById("ipv4").value = "10.1.1.200";
+        document.getElementById("webpage").value = "https://www.jacek.pl";
         document.getElementById("email").value = "jb@gmail.com";
-        document.getElementById("zip").value = "90-000";
-        document.getElementById("nip").value = "022-41-11-111";
-        document.getElementById("www").value = "https://www.jacek.pl";
-        document.getElementById("phone").value = "728727147";
+        document.getElementById("winpath1").value = "c:\\windows\\temp";
+        document.getElementById("winpath2").value = "C:\\Windows\\temp";
+        document.getElementById("linuxpath").value = "/etc/process";
+        document.getElementById("phone").value = "123456789";
 
       }
       else if (liczba == 3) {
-        document.getElementById("firstname").value = "Jacek";
-        document.getElementById("lastname").value = "dsd";
+        document.getElementById("ipv4").value = "10.1.1.200";
+        document.getElementById("webpage").value = "https://www.jacek.pl";
         document.getElementById("email").value = "jb@gmail.com";
-        document.getElementById("zip").value = "90-000";
-        document.getElementById("nip").value = "022-41-11-111";
-        document.getElementById("www").value = "https://www.jacek.pl";
-        document.getElementById("phone").value = "728727147";
+        document.getElementById("winpath1").value = "c:\\windows\\temp";
+        document.getElementById("winpath2").value = "C:\\Windows\\temp";
+        document.getElementById("linuxpath").value = "/etc/process";
+        document.getElementById("phone").value = "123456789";
       }
       else if (liczba == 4) {
-        document.getElementById("firstname").value = "Jacek";
-        document.getElementById("lastname").value = "Banek";
+        document.getElementById("ipv4").value = "10.1.1.200";
+        document.getElementById("webpage").value = "https://www.jacek.pl";
         document.getElementById("email").value = "jb@gmail.com";
-        document.getElementById("zip").value = "90-000";
-        document.getElementById("nip").value = "022-41-11-111";
-        document.getElementById("www").value = "https://www.jacek.pl";
-        document.getElementById("phone").value = "728727147";
+        document.getElementById("winpath1").value = "c:\\windows\\temp";
+        document.getElementById("winpath2").value = "C:\\Windows\\temp";
+        document.getElementById("linuxpath").value = "/etc/process";
+        document.getElementById("phone").value = "123456789";
       }
       else if (liczba == 5) {
-        document.getElementById("firstname").value = "Jacek";
-        document.getElementById("lastname").value = "Banek";
-        document.getElementById("email").value = "jb@gmaiddl.com";
-        document.getElementById("zip").value = "90-000";
-        document.getElementById("nip").value = "022-41-11-111";
-        document.getElementById("www").value = "https://www.jacek.pl";
-        document.getElementById("phone").value = "728727147";
+        document.getElementById("ipv4").value = "10.1.1.200";
+        document.getElementById("webpage").value = "https://www.jacek.pl";
+        document.getElementById("email").value = "jb@gmail.com";
+        document.getElementById("winpath1").value = "c:\\windows\\temp";
+        document.getElementById("winpath2").value = "C:\\Windows\\temp";
+        document.getElementById("linuxpath").value = "/etc/process";
+        document.getElementById("phone").value = "123456789";
         liczba = 0;
       }
       liczba = liczba + 1;
