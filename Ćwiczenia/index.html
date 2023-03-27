@@ -1,0 +1,49 @@
+<html>
+
+<head>
+ <link rel="stylesheet" href="style.css"> 
+</head>
+
+<body>
+  <script src="script.js"></script> 
+  <h1 style="text-align: center;">Labolatorium</h1>
+  <form>
+    <ul>
+      <li>
+        <label for="ipv4">IPV4</label>
+        <input id="ipv4" type="text" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></input>
+      </li>
+      <li>
+        <label for="webpage">Strona</label>
+        <input id="webpage" type="url"></input>
+      </li>
+      <li>
+        <label for="email">Mail</label>
+        <input id="email" type="email"></input>
+      </li>
+      <li>
+        <label for="winpath1">Ścieżka windows lowercase</label>
+        <input id="winpath1" type="text" pattern="^([a-z]:\\)(windows|winnt|win|dos|msdos)(\\[a-z0-9]+){0,}$"></input>
+      </li>
+      <li>
+        <label for="winpath2">Ścieżka windows allcase</label>
+        <input id="winpath2" type="text" pattern="^([a-zA-Z]:\\)([[Ww][Ii][Nn][Dd][Oo][Ww][Ss]|[Ww][Ii][Nn][Nn][Tt]|[Ww][Ii][Nn]|[Dd][Oo][Ss]|[Mm][Ss][Dd][Oo][Ss])(\\[a-zA-Z0-9]+){0,}$"></input>
+      </li>
+      <li>
+        <label for="linuxpath">Ścieżka Linux</label>
+        <input id="linuxpath" type="text" pattern="^(/etc)(\/[a-zA-Z0-9]+){0,}$"></input>
+      </li>
+      <li>
+        <label for="phone">Telefon</label>
+        <input id="phone" type="number"></input>
+      </li>
+      <!-- the content goes here -->
+      <li class="button">
+        <button type="button" id="generate" onclick="myFunction()">Generuj dane!</button>
+      </li>
+    </ul>
+  </form>
+
+</body>
+
+</html>
