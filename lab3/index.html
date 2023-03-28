@@ -10,6 +10,34 @@
   <form>
     <ul>
       <li>
+        <label for="firstname">Imię</label>
+        <input id="firstname" type="text"></input>
+      </li>
+      <li>
+        <label for="lastname">Nazwisko</label>
+        <input id="lastname" type="text"></input>
+      </li>
+      <li>
+        <label for="email">Mail</label>
+        <input id="email" type="email"></input>
+      </li>
+      <li>
+        <label for="zip">Kod pocztowy</label>
+        <input id="zip" type="text" pattern="^\d{2}-\d{3}$"></input>
+      </li>
+      <li>
+        <label for="nip">NIP</label>
+        <input id="nip" pattern="^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$"></input>
+      </li>
+      <li>
+        <label for="phone">Telefon</label>
+        <input id="phone" type="number"></input>
+      </li>
+    </ul>
+    </form>
+    <form>
+      <ul>
+      <li>
         <label for="ipv4">IPV4</label>
         <input id="ipv4" type="text" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></input>
       </li>
@@ -32,10 +60,6 @@
       <li>
         <label for="linuxpath">Ścieżka Linux</label>
         <input id="linuxpath" type="text" pattern="^(/etc)(\/[a-zA-Z0-9]+){0,}$"></input>
-      </li>
-      <li>
-        <label for="phone">Telefon</label>
-        <input id="phone" type="number"></input>
       </li>
       <!-- the content goes here -->
       <li class="button">
