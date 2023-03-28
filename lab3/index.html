@@ -46,10 +46,6 @@
         <input id="webpage" type="url"></input>
       </li>
       <li>
-        <label for="email">Mail</label>
-        <input id="email" type="email"></input>
-      </li>
-      <li>
         <label for="winpath1">Ścieżka windows lowercase</label>
         <input id="winpath1" type="text" pattern="^([a-z]:\\)(windows|winnt|win|dos|msdos)(\\[a-z0-9]+){0,}$"></input>
       </li>
@@ -64,6 +60,7 @@
       <!-- the content goes here -->
       <li class="button">
         <button type="button" id="generate" onclick="myFunction()">Generuj dane!</button>
+        <button type="button" id="add_data" onclick="addToTable()">Dodaj</button>
       </li>
     </ul>
   </form>
