@@ -49,3 +49,33 @@ button {
    between the labels and their text fields */
   margin-left: 0.5em;
 }
+
+.fixTableHead {
+  overflow-y: auto;
+  height: 110px;
+}
+.fixTableHead thead th {
+  position: sticky;
+  top: 0;
+}
+table {
+  align-items: center;
+  width: 700px;
+  table-layout: fixed;       
+  overflow: hidden;
+  word-break: break-all;
+  margin:auto;
+  border-collapse:separate;
+  border:solid black 1px;
+  border-radius:10px;
+  
+}
+
+th,
+td {
+  padding: 8px 15px;
+  border: solid black 1px;
+  
+}
+
+
