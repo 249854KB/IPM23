@@ -72,9 +72,19 @@ function myFunction() {
 }
 function addToTable() {
   var t = document.getElementById('clients_data_table');
-  var r = document.createElement('TR');
-  r.append(document.getElementById("firstname").value );
-  r.append( document.getElementById("lastname").value);
-  r.append(document.getElementById("zip").value);
+  var r = t.insertRow(-1);
+  var c = r.insertCell(0);
+  c.innerHTML = document.getElementById("firstname").value;
+  c = r.insertCell(1);  
+  c.innerHTML = document.getElementById("lastname").value;
+  c = r.insertCell(2);
+  c.innerHTML = document.getElementById("mail").value;
+  c = r.insertCell(3);
+  c.innerHTML = document.getElementById("zip").value;
+  c = r.insertCell(4);
+  c.innerHTML = document.getElementById("nip").value;
+  c = r.insertCell(5);
+  c.innerHTML = document.getElementById("phone").value;
+
   t.tBodies[0].appendChild(r)
 }
