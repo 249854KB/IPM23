@@ -70,3 +70,11 @@ function myFunction() {
   }
   liczba = liczba + 1;
 }
+function addToTable() {
+  var t = document.getElementById('clients_data_table');
+  var r = document.createElement('TR');
+  r.append(document.getElementById("firstname").value );
+  r.append( document.getElementById("lastname").value);
+  r.append(document.getElementById("zip").value);
+  t.tBodies[0].appendChild(r)
+}
