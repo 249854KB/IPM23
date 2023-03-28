@@ -78,7 +78,7 @@ function addToTable() {
   c = r.insertCell(1);  
   c.innerHTML = document.getElementById("lastname").value;
   c = r.insertCell(2);
-  c.innerHTML = document.getElementById("mail").value;
+  c.innerHTML = document.getElementById("email").value;
   c = r.insertCell(3);
   c.innerHTML = document.getElementById("zip").value;
   c = r.insertCell(4);
@@ -86,5 +86,4 @@ function addToTable() {
   c = r.insertCell(5);
   c.innerHTML = document.getElementById("phone").value;
 
-  t.tBodies[0].appendChild(r)
 }
