@@ -3,51 +3,70 @@ var liczba = 1
 
 let db;
 
-const openRequest = indexedDB.open('myDatabase', 2);
+const dbName = "Baza1";
 
-openRequest.onupgradeneeded = function (e) {
-  db = e.target.result;
-  console.log('running onupgradeneeded');
-  const storeOS = db.createObjectStore('myDatabaseStore', { keyPath: "name" });
+const request = indexedDB.open(dbName, 2);  //Version 2
 
+request.onerror = (event) => {
+  // Handle errors.
+  console.log("Error")
 };
-openRequest.onsuccess = function (e) {
-  console.log('running onsuccess');
-  db = e.target.result;
-  addItem();
-};
-openRequest.onerror = function (e) {
-  console.log('onerror! doesnt work');
-  console.dir(e);
+request.onupgradeneeded = (event) => {
+  const db = event.target.result;
+
+  // Create an objectStore to hold information about our customers. We're
+  // going to use "ssn" as our key path because it's guaranteed to be
+  // unique - or at least that's what I was told during the kickoff meeting.
+  const objectStore = db.createObjectStore("User", { keyPath: "phone" });
+
+  // Create an index to search customers by name. We may have duplicates
+  // so we can't use a unique index.
+  objectStore.createIndex("firstname", "firstname", { unique: false });
+
+  // Create an index to search customers by email. We want to ensure that
+  // no two customers have the same email, so use a unique index.
+  objectStore.createIndex("email", "email", { unique: false });
+
+  // Use transaction oncomplete to make sure the objectStore creation is
+  // finished before adding data into it.
+  objectStore.transaction.oncomplete = (event) => {
+    // Store values in the newly created objectStore.
+    const customerObjectStore = db
+      .transaction("User", "readwrite")
+      .objectStore("User");
+    customerData.forEach((User) => {
+      customerObjectStore.add(User);
+    });
+  };
 };
 
-function save_data() {
+
+function saveData() {
   var t = document.getElementById('clients_data_table');
   for (var i = 0, row; row = t.rows[i]; i++) {
-    const item = {
-      firstname: t.rows[i].cell[0],
-      lastname: t.rows[i].cell[0],
-      email: t.rows[i].cell[0],
-      zip: t.rows[i].cell[0],
-      nip: t.rows[i].cell[0],
-      phone: t.rows[i].cell[0]
+    const User = {
+      firstname: t.rows[i].cells[0],
+      lastname: t.rows[i].cells[0],
+      email: t.rows[i].cells[0],
+      zip: t.rows[i].cells[0],
+      nip: t.rows[i].cells[0],
+      phone: t.rows[i].cells[0]
     };
-    const tx = db.transaction("myDatabaseStore", "readwrite");
-    const store = tx.objectStore('myDatabaseStore');
-    store.add(item);
+
+    const transaction = db.transaction(User, "readwrite");
   }
 
 }
 
-function load_data() {
-  const store = tx.objectStore('myDatabaseStore');
-  store.array.forEach(item => {
-     document.getElementById("firstname").value = item.firstname,
+function loadData() {
+  
+  request.db.store.array.forEach(item => {
+    document.getElementById("firstname").value = item.firstname,
       document.getElementById("lastname").value = item.lastname,
-    document.getElementById("email").value = item.email,
-     document.getElementById("zip").value = item.zip,
-     document.getElementById("nip").value = item.nip,
-     document.getElementById("phone").value = item.phone
+      document.getElementById("email").value = item.email,
+      document.getElementById("zip").value = item.zip,
+      document.getElementById("nip").value = item.nip,
+      document.getElementById("phone").value = item.phone
   });
 }
 
