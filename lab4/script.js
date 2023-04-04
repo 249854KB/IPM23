@@ -12,6 +12,7 @@ request.onerror = (event) => {
   console.log("Error")
 };
 request.onupgradeneeded = (event) => {
+  console.log("Upgrade needed");
   const db = event.target.result;
 
   // Create an objectStore to hold information about our customers. We're
