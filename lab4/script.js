@@ -70,7 +70,7 @@ function myFunction() {
   }
   liczba = liczba + 1;
 }
-function addToTable() {
+function saveData() {
   var t = document.getElementById('clients_data_table');
   var r = t.insertRow(-1);
   var c = r.insertCell(0);
