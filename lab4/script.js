@@ -6,50 +6,57 @@ let db;
 const openRequest = indexedDB.open('myDatabase', 2);
 
 openRequest.onupgradeneeded = function (e) {
-    db = e.target.result;
-    console.log('running onupgradeneeded');
-    const storeOS = db.createObjectStore('myDatabaseStore',  {keyPath: "name"});
-                
+  db = e.target.result;
+  console.log('running onupgradeneeded');
+  const storeOS = db.createObjectStore('myDatabaseStore', { keyPath: "name" });
+
 };
 openRequest.onsuccess = function (e) {
-    console.log('running onsuccess');
-    db = e.target.result;
-    addItem();
+  console.log('running onsuccess');
+  db = e.target.result;
+  addItem();
 };
 openRequest.onerror = function (e) {
-    console.log('onerror! doesnt work');
-    console.dir(e);
+  console.log('onerror! doesnt work');
+  console.dir(e);
 };
 
-function addItem() {
+function saveData() {
+  var t = document.getElementById('clients_data_table');
+  for (var i = 0, row; row = t.rows[i]; i++) {
     const item = {
-        firstname: document.getElementById("firstname").value,
-        lastname: document.getElementById("lastname").value,
-        description: 'It is a purple banana!',
-        created: new Date().getTime(),
+      firstname: document.getElementById("firstname").value,
+      lastname: document.getElementById("lastname").value,
+      email: document.getElementById("email").value,
+      zip: document.getElementById("zip").value,
+      nip: document.getElementById("nip").value,
+      phone: document.getElementById("phone").value
     };
     const tx = db.transaction("myDatabaseStore", "readwrite");
     const store = tx.objectStore('myDatabaseStore');
     store.add(item);
+  }
+
 }
-const transaction = db.transaction(["customers"]);
-const objectStore = transaction.objectStore("customers");
-const request = objectStore.get("444-44-4444");
-request.onerror = (event) => {
-  // Handle errors!
-};
-request.onsuccess = (event) => {
-  // Do something with the request.result!
-  console.log(`Name for SSN 444-44-4444 is ${request.result.name}`);
-};
 
+function loadData() {
+  const store = tx.objectStore('myDatabaseStore');
+  store.array.forEach(item => {
+     document.getElementById("firstname").value = item.firstname,
+      document.getElementById("lastname").value = item.lastname,
+    document.getElementById("email").value = item.email,
+     document.getElementById("zip").value = item.zip,
+     document.getElementById("nip").value = item.nip,
+     document.getElementById("phone").value = item.phone
+  });
+}
 
-function saveData() {
+function toTable() {
   var t = document.getElementById('clients_data_table');
   var r = t.insertRow(-1);
   var c = r.insertCell(0);
   c.innerHTML = document.getElementById("firstname").value;
-  c = r.insertCell(1);  
+  c = r.insertCell(1);
   c.innerHTML = document.getElementById("lastname").value;
   c = r.insertCell(2);
   c.innerHTML = document.getElementById("email").value;
@@ -131,6 +138,6 @@ function myFunction() {
     liczba = 0;
   }
   liczba = liczba + 1;
-  saveData();
+  toTable();
 }
 
