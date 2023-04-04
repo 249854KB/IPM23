@@ -1,5 +1,24 @@
 // JavaScript
 var liczba = 1
+
+function saveData() {
+  var t = document.getElementById('clients_data_table');
+  var r = t.insertRow(-1);
+  var c = r.insertCell(0);
+  c.innerHTML = document.getElementById("firstname").value;
+  c = r.insertCell(1);  
+  c.innerHTML = document.getElementById("lastname").value;
+  c = r.insertCell(2);
+  c.innerHTML = document.getElementById("email").value;
+  c = r.insertCell(3);
+  c.innerHTML = document.getElementById("zip").value;
+  c = r.insertCell(4);
+  c.innerHTML = document.getElementById("nip").value;
+  c = r.insertCell(5);
+  c.innerHTML = document.getElementById("phone").value;
+
+}
+
 function myFunction() {
   if (liczba == 1) {
     document.getElementById("firstname").value = "kacper";
@@ -69,21 +88,6 @@ function myFunction() {
     liczba = 0;
   }
   liczba = liczba + 1;
+  saveData();
 }
-function saveData() {
-  var t = document.getElementById('clients_data_table');
-  var r = t.insertRow(-1);
-  var c = r.insertCell(0);
-  c.innerHTML = document.getElementById("firstname").value;
-  c = r.insertCell(1);  
-  c.innerHTML = document.getElementById("lastname").value;
-  c = r.insertCell(2);
-  c.innerHTML = document.getElementById("email").value;
-  c = r.insertCell(3);
-  c.innerHTML = document.getElementById("zip").value;
-  c = r.insertCell(4);
-  c.innerHTML = document.getElementById("nip").value;
-  c = r.insertCell(5);
-  c.innerHTML = document.getElementById("phone").value;
 
-}
