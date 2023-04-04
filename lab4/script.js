@@ -21,16 +21,16 @@ openRequest.onerror = function (e) {
   console.dir(e);
 };
 
-function saveData() {
+function save_data() {
   var t = document.getElementById('clients_data_table');
   for (var i = 0, row; row = t.rows[i]; i++) {
     const item = {
-      firstname: document.getElementById("firstname").value,
-      lastname: document.getElementById("lastname").value,
-      email: document.getElementById("email").value,
-      zip: document.getElementById("zip").value,
-      nip: document.getElementById("nip").value,
-      phone: document.getElementById("phone").value
+      firstname: t.rows[i].cell[0],
+      lastname: t.rows[i].cell[0],
+      email: t.rows[i].cell[0],
+      zip: t.rows[i].cell[0],
+      nip: t.rows[i].cell[0],
+      phone: t.rows[i].cell[0]
     };
     const tx = db.transaction("myDatabaseStore", "readwrite");
     const store = tx.objectStore('myDatabaseStore');
@@ -39,7 +39,7 @@ function saveData() {
 
 }
 
-function loadData() {
+function load_data() {
   const store = tx.objectStore('myDatabaseStore');
   store.array.forEach(item => {
      document.getElementById("firstname").value = item.firstname,
