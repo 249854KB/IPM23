@@ -256,8 +256,8 @@ function addContactToTable(contact) {
 var nameInput = document.getElementById('nameInput');
 var emailInput = document.getElementById('emailInput');
 
-document.getElementById('addButton').onclick = function (e) {
-  e.preventDefault();
+saveData() {
+ 
 
   var name = nameInput.value;
   var email = emailInput.value;
@@ -283,8 +283,29 @@ document.getElementById('addButton').onclick = function (e) {
   });
 };
 
-document.getElementById('populateButton').onclick = function (e) {
-  e.preventDefault();
+function createFakeContacts() {
+  console.log('generating fake contacts');
+
+  contactsDB.readWrite([ contactsStoreName ], function(tx) {
+      for (var i = 0, n = 10; i < n; i++) {
+          var name = "1";
+          var email = "e";
+
+          var contact = {
+              name: name,
+              email: email
+          };
+
+          tx.objectStore(contactsStoreName).put(contact);
+
+          addContactToTable(contact);
+      }
+  }, function() {
+      console.log('done generating fake contacts');
+  });
+}
+
+loadData {
 
   createFakeContacts();
 };
