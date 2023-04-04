@@ -1,6 +1,49 @@
 // JavaScript
 var liczba = 1
 
+let db;
+
+const openRequest = indexedDB.open('myDatabase', 2);
+
+openRequest.onupgradeneeded = function (e) {
+    db = e.target.result;
+    console.log('running onupgradeneeded');
+    const storeOS = db.createObjectStore('myDatabaseStore',  {keyPath: "name"});
+                
+};
+openRequest.onsuccess = function (e) {
+    console.log('running onsuccess');
+    db = e.target.result;
+    addItem();
+};
+openRequest.onerror = function (e) {
+    console.log('onerror! doesnt work');
+    console.dir(e);
+};
+
+function addItem() {
+    const item = {
+        firstname: document.getElementById("firstname").value,
+        lastname: document.getElementById("lastname").value,
+        description: 'It is a purple banana!',
+        created: new Date().getTime(),
+    };
+    const tx = db.transaction("myDatabaseStore", "readwrite");
+    const store = tx.objectStore('myDatabaseStore');
+    store.add(item);
+}
+const transaction = db.transaction(["customers"]);
+const objectStore = transaction.objectStore("customers");
+const request = objectStore.get("444-44-4444");
+request.onerror = (event) => {
+  // Handle errors!
+};
+request.onsuccess = (event) => {
+  // Do something with the request.result!
+  console.log(`Name for SSN 444-44-4444 is ${request.result.name}`);
+};
+
+
 function saveData() {
   var t = document.getElementById('clients_data_table');
   var r = t.insertRow(-1);
