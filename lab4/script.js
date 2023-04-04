@@ -1,46 +1,106 @@
 // JavaScript
 var liczba = 1
 
-let db;
 
-const dbName = "Baza1";
+// Helpers for working with indexedDB API.
 
-const request = indexedDB.open(dbName, 2);  //Version 2
+var indexedDB = window.indexedDB ||
+  window.webkitIndexedDB ||
+  window.mozIndexedDB;
 
-request.onerror = (event) => {
-  // Handle errors.
-  console.log("Error")
-};
-request.onupgradeneeded = (event) => {
-  console.log("Upgrade needed");
-  const db = event.target.result;
+function DB(name) {
+  this.init = function (version, upgrade, done) {
+    console.log('init');
+    var openReq = indexedDB.open(name, version);
+    openReq.onsuccess = function (e) {
+      var db = e.target.result;
+      // Chrome 23 still has setVersion so don't upgrade
+      // unless the version is still old.
+      if ('setVersion' in db && db.version < version) {
+        var setVerReq = db.setVersion(version);
+        setVerReq.onsuccess = function (e) {
+          console.log('upgrading');
+          upgrade(e.target.result.db);
+          done();
+        };
+      } else {
+        done();
+      }
+    };
+    openReq.onupgradeneeded = function (e) {
+      // Never gets raised before Chrome 23.
+      console.log('upgrading');
+      upgrade(e.target.result);
+    };
+    openReq.onerror = function (e) {
+      console.log('init error');
+    };
+    openReq.onblocked = function (e) {
+      console.log('init blocked');
+    };
+  };
 
-  // Create an objectStore to hold information about our customers. We're
-  // going to use "ssn" as our key path because it's guaranteed to be
-  // unique - or at least that's what I was told during the kickoff meeting.
-  const objectStore = db.createObjectStore("User", { keyPath: "phone" });
+  this.read = function (stores, fn, done) {
+    return this.transaction('readonly', stores, fn, done);
+  };
 
-  // Create an index to search customers by name. We may have duplicates
-  // so we can't use a unique index.
-  objectStore.createIndex("firstname", "firstname", { unique: false });
+  this.readWrite = function (stores, fn, done) {
+    return this.transaction('readwrite', stores, fn, done);
+  };
 
-  // Create an index to search customers by email. We want to ensure that
-  // no two customers have the same email, so use a unique index.
-  objectStore.createIndex("email", "email", { unique: false });
+  this.transaction = function (mode, stores, fn, done) {
+    var openReq = indexedDB.open(name);
+    openReq.onsuccess = function (e) {
+      var db = e.target.result;
+      var tx = db.transaction(stores, mode);
+      tx.oncomplete = function (e) {
+        if (done) {
+          done();
+        }
+      };
+      tx.onabort = function (e) {
+        console.log('tx abort');
+      };
+      tx.onerror = function (e) {
+        console.log('tx error');
+      };
+      fn(tx);
+    };
+    openReq.onerror = function (e) {
+      console.log('open tx error');
+    };
+  };
+}
 
-  // Use transaction oncomplete to make sure the objectStore creation is
-  // finished before adding data into it.
-  objectStore.transaction.oncomplete = (event) => {
-    // Store values in the newly created objectStore.
-    const customerObjectStore = db
-      .transaction("User", "readwrite")
-      .objectStore("User");
-    customerData.forEach((User) => {
-      customerObjectStore.add(User);
-    });
+DB.deleteDatabase = function (name, done) {
+  var delReq = indexedDB.deleteDatabase(name);
+  delReq.onsuccess = function (e) {
+    // Not triggered before Chrome 23.
+    done();
+  };
+  delReq.onerror = function (e) {
+    console.log('delete error');
+  };
+  delReq.onblocked = function (e) {
+    console.log('delete blocked');
   };
 };
 
+var databaseName = 'ContactsDB';
+var contactsStoreName = 'contacts';
+
+var contactsDB = new DB(databaseName);
+
+var contacts = document.getElementById('contacts');
+
+contactsDB.init(1, function(db) {
+db.createObjectStore(contactsStoreName, {
+autoIncrement: true
+});
+}, function() {
+console.log('ready');
+
+});
 
 function saveData() {
   var t = document.getElementById('clients_data_table');
@@ -60,7 +120,7 @@ function saveData() {
 }
 
 function loadData() {
-  
+
   request.db.store.array.forEach(item => {
     document.getElementById("firstname").value = item.firstname,
       document.getElementById("lastname").value = item.lastname,
@@ -161,3 +221,81 @@ function myFunction() {
   toTable();
 }
 
+
+
+
+
+
+// The actual script for this page.
+
+
+
+function loadContactsTable() {
+  contactsDB.read([contactsStoreName], function (tx) {
+    var cursor = tx.objectStore(contactsStoreName).openCursor();
+    cursor.onsuccess = function (e) {
+      if (e.target.result) {
+        addContactToTable(e.target.result.value);
+        e.target.result.continue();
+      }
+    };
+    cursor.onerror = function (e) {
+      console.log('cursor error');
+    };
+  });
+}
+
+function addContactToTable(contact) {
+  var newRow = contacts.insertRow(-1);
+  var nameCell = newRow.insertCell(-1);
+  nameCell.textContent = contact.name;
+  var emailCell = newRow.insertCell(-1);
+  emailCell.textContent = contact.email;
+}
+
+var nameInput = document.getElementById('nameInput');
+var emailInput = document.getElementById('emailInput');
+
+document.getElementById('addButton').onclick = function (e) {
+  e.preventDefault();
+
+  var name = nameInput.value;
+  var email = emailInput.value;
+
+  console.log('adding');
+
+  contactsDB.readWrite([contactsStoreName], function (tx) {
+    var contact = {
+      name: name,
+      email: email
+    };
+
+    tx.objectStore(contactsStoreName).put(contact);
+
+    addContactToTable(contact);
+  }, function () {
+    console.log('added');
+
+    nameInput.value = '';
+    emailInput.value = '';
+
+    nameInput.focus();
+  });
+};
+
+document.getElementById('populateButton').onclick = function (e) {
+  e.preventDefault();
+
+  createFakeContacts();
+};
+
+
+document.getElementById('deleteButton').onclick = function (e) {
+  e.preventDefault();
+
+  console.log('deleting');
+
+  DB.deleteDatabase(databaseName, function () {
+    console.log('deleted');
+  });
+};
