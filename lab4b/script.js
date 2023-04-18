@@ -74,11 +74,6 @@ function saveData() {
 
     // Call an object store that's already been added to the database
     const objectStore = transaction.objectStore('IndexedDB');
-    console.log(objectStore.indexNames);
-    console.log(objectStore.keyPath);
-    console.log(objectStore.name);
-    console.log(objectStore.transaction);
-    console.log(objectStore.autoIncrement);
 
     // Make a request to add our newItem object to the object store
     const objectStoreRequest = objectStore.add(newItem[0]);
@@ -244,4 +239,11 @@ function clearDB(name)
     console.log("Database deleted successfully");
   
   };
+}
+
+function clearDBStore(storename)
+{
+  const transaction = db.transaction(storename, "readwrite");
+  const objectStore = transaction.objectStore(storename);
+  const objectStoreRequest = objectStore.clear();
 }
