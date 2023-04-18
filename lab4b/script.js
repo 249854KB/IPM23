@@ -1,136 +1,145 @@
 // JavaScript
 var liczba = 1
 
+const DBOpenRequest = window.indexedDB.open('IndexedDB', 10);
+let db //Info about database
+DBOpenRequest.onerror = (event) => {
+  console.log("Error opening database");
+};
 
-// Helpers for working with indexedDB API.
+DBOpenRequest.onsuccess = (event) => {
+  console.log("Database opening succeed");
 
-var indexedDB = window.indexedDB ||
-  window.webkitIndexedDB ||
-  window.mozIndexedDB;
+  db = event.target.result;
 
-function DB(name) {
-  this.init = function (version, upgrade, done) {
-    console.log('init');
-    var openReq = indexedDB.open(name, version);
-    openReq.onsuccess = function (e) {
-      var db = e.target.result;
-      // Chrome 23 still has setVersion so don't upgrade
-      // unless the version is still old.
-      if ('setVersion' in db && db.version < version) {
-        var setVerReq = db.setVersion(version);
-        setVerReq.onsuccess = function (e) {
-          console.log('upgrading');
-          upgrade(e.target.result.db);
-          done();
-        };
-      } else {
-        done();
-      }
-    };
-    openReq.onupgradeneeded = function (e) {
-      // Never gets raised before Chrome 23.
-      console.log('upgrading');
-      upgrade(e.target.result);
-    };
-    openReq.onerror = function (e) {
-      console.log('init error');
-    };
-    openReq.onblocked = function (e) {
-      console.log('init blocked');
-    };
+};
+
+
+DBOpenRequest.onupgradeneeded = (event) => {
+  db = event.target.result;
+
+  db.onerror = (event) => {
+    console.log('Error loading database.');
   };
 
-  this.read = function (stores, fn, done) {
-    return this.transaction('readonly', stores, fn, done);
-  };
+  // Create an objectStore for this database
+  const objectStore = db.createObjectStore('IndexedDB', { keyPath: 'id' });
 
-  this.readWrite = function (stores, fn, done) {
-    return this.transaction('readwrite', stores, fn, done);
-  };
+  // Define what data items the objectStore will contain
+  objectStore.createIndex('firstname', 'firstname', { unique: false });
+  objectStore.createIndex('lastname', 'lastname', { unique: false });
+  objectStore.createIndex('email', 'email', { unique: false });
+  objectStore.createIndex('zip', 'zip', { unique: false });
+  objectStore.createIndex('nip', 'nip', { unique: false });
+  objectStore.createIndex('phone', 'phone', { unique: false });
 
-  this.transaction = function (mode, stores, fn, done) {
-    var openReq = indexedDB.open(name);
-    openReq.onsuccess = function (e) {
-      var db = e.target.result;
-      var tx = db.transaction(stores, mode);
-      tx.oncomplete = function (e) {
-        if (done) {
-          done();
-        }
-      };
-      tx.onabort = function (e) {
-        console.log('tx abort');
-      };
-      tx.onerror = function (e) {
-        console.log('tx error');
-      };
-      fn(tx);
+  console.log("Created object store.");
+};
+
+function saveData(e) {
+  // Prevent default, as we don't want the form to submit in the conventional way
+  //e.preventDefault();
+
+  var table = document.getElementById("clients_data_table");
+  for (var i = 1, row; row = table.rows[i]; i++) {
+    //iterate through rows
+    //rows would be accessed using the "row" variable assigned in the for loop
+    var vfirstname = row.cells[0].innerHTML;
+    var vlastname = row.cells[1].innerHTML;
+    var vemail = row.cells[2].innerHTML;
+    var vzip = row.cells[3].innerHTML;
+    var vnip = row.cells[4].innerHTML;
+    var vphone = row.cells[5].innerHTML;
+
+    
+
+    // Grab the values entered into the form fields and store them in an object ready for being inserted into the IndexedDB
+    const newItem = [
+      { id: i, firstname: vfirstname, lastname: vlastname, email: vemail, zip: vzip, nip: vnip, phone: vphone },
+    ];
+    
+    // Open a read/write DB transaction, ready for adding the data
+    const transaction = db.transaction(['IndexedDB'], 'readwrite');
+
+    // Report on the success of the transaction completing, when everything is done
+    transaction.oncomplete = () => {
+      console.log('Transaction completed: database modification finished.');
+
+      // Update the display of data to show the newly added item, by running displayData() again.
     };
-    openReq.onerror = function (e) {
-      console.log('open tx error');
-    };
-  };
-}
 
-DB.deleteDatabase = function (name, done) {
-  var delReq = indexedDB.deleteDatabase(name);
-  delReq.onsuccess = function (e) {
-    // Not triggered before Chrome 23.
-    done();
-  };
-  delReq.onerror = function (e) {
-    console.log('delete error');
-  };
-  delReq.onblocked = function (e) {
-    console.log('delete blocked');
+    // Handler for any unexpected error
+    transaction.onerror = () => {
+      console.log(`Transaction not opened due to error: ${transaction.error}`);
+    };
+
+    // Call an object store that's already been added to the database
+    const objectStore = transaction.objectStore('IndexedDB');
+    console.log(objectStore.indexNames);
+    console.log(objectStore.keyPath);
+    console.log(objectStore.name);
+    console.log(objectStore.transaction);
+    console.log(objectStore.autoIncrement);
+
+    // Make a request to add our newItem object to the object store
+    const objectStoreRequest = objectStore.add(newItem[0]);
+    objectStoreRequest.onsuccess = (event) => {
+
+      console.log('Request successful.');
+
+    };
+  }
+};
+
+//Loading data
+function loadData() {
+  // First clear the content of the task list so that you don't get a huge long list of duplicate stuff each time
+  // the display is updated.
+  //while (taskList.firstChild) {
+  // taskList.removeChild(taskList.lastChild);
+  //  }
+  var table = document.getElementById("clients_data_table");
+  while(table.rows.length > 0) {
+    table.deleteRow(0);
+  }
+  // Open our object store and then get a cursor list of all the different data items in the IDB to iterate through
+  const objectStore = db.transaction('IndexedDB').objectStore('IndexedDB');
+  objectStore.openCursor().onsuccess = (event) => {
+    const cursor = event.target.result;
+    // Check if there are no (more) cursor items to iterate through
+    if (!cursor) {
+      // No more items to iterate through, we quit.
+      console.log('Entries all displayed.');
+      return;
+    }
+
+    // Read the shit and add it to table
+    const { firstname, lastname, email, zip, nip, phone } = cursor.value;
+    var t = document.getElementById('clients_data_table');
+    var r = t.insertRow(-1);
+    var c = r.insertCell(0);
+    c.innerHTML = firstname;
+    c = r.insertCell(1);
+    c.innerHTML = lastname;
+    c = r.insertCell(2);
+    c.innerHTML = email;
+    c = r.insertCell(3);
+    c.innerHTML = zip;
+    c = r.insertCell(4);
+    c.innerHTML = nip;
+    c = r.insertCell(5);
+    c.innerHTML = phone;
+
+    // continue on to the next item in the cursor
+
+    console.log('Printed row');
+    cursor.continue();
   };
 };
 
-var databaseName = 'ContactsDB';
-var contactsStoreName = 'contacts';
 
-var contactsDB = new DB(databaseName);
 
-var contacts = document.getElementById('contacts');
-
-contactsDB.init(1, function(db) {
-db.createObjectStore(contactsStoreName, {
-autoIncrement: true
-});
-}, function() {
-console.log('ready');
-
-});
-
-function saveData() {
-  var t = document.getElementById('clients_data_table');
-  for (var i = 0, row; row = t.rows[i]; i++) {
-    const User = {
-      firstname: t.rows[i].cells[0],
-      lastname: t.rows[i].cells[0],
-      email: t.rows[i].cells[0],
-      zip: t.rows[i].cells[0],
-      nip: t.rows[i].cells[0],
-      phone: t.rows[i].cells[0]
-    };
-
-    const transaction = db.transaction(User, "readwrite");
-  }
-
-}
-
-function loadData() {
-
-  request.db.store.array.forEach(item => {
-    document.getElementById("firstname").value = item.firstname,
-      document.getElementById("lastname").value = item.lastname,
-      document.getElementById("email").value = item.email,
-      document.getElementById("zip").value = item.zip,
-      document.getElementById("nip").value = item.nip,
-      document.getElementById("phone").value = item.phone
-  });
-}
-
+// 2 Functions that are used in Dodaj button
 function toTable() {
   var t = document.getElementById('clients_data_table');
   var r = t.insertRow(-1);
@@ -149,7 +158,7 @@ function toTable() {
 
 }
 
-function myFunction() {
+function generateDataAndAppend() {
   if (liczba == 1) {
     document.getElementById("firstname").value = "kacper";
     document.getElementById("lastname").value = "Banek";
@@ -221,102 +230,3 @@ function myFunction() {
   toTable();
 }
 
-
-
-
-
-
-// The actual script for this page.
-
-
-
-function loadContactsTable() {
-  contactsDB.read([contactsStoreName], function (tx) {
-    var cursor = tx.objectStore(contactsStoreName).openCursor();
-    cursor.onsuccess = function (e) {
-      if (e.target.result) {
-        addContactToTable(e.target.result.value);
-        e.target.result.continue();
-      }
-    };
-    cursor.onerror = function (e) {
-      console.log('cursor error');
-    };
-  });
-}
-
-function addContactToTable(contact) {
-  var newRow = contacts.insertRow(-1);
-  var nameCell = newRow.insertCell(-1);
-  nameCell.textContent = contact.name;
-  var emailCell = newRow.insertCell(-1);
-  emailCell.textContent = contact.email;
-}
-
-var nameInput = document.getElementById('nameInput');
-var emailInput = document.getElementById('emailInput');
-
-saveData() {
- 
-
-  var name = nameInput.value;
-  var email = emailInput.value;
-
-  console.log('adding');
-
-  contactsDB.readWrite([contactsStoreName], function (tx) {
-    var contact = {
-      name: name,
-      email: email
-    };
-
-    tx.objectStore(contactsStoreName).put(contact);
-
-    addContactToTable(contact);
-  }, function () {
-    console.log('added');
-
-    nameInput.value = '';
-    emailInput.value = '';
-
-    nameInput.focus();
-  });
-};
-
-function createFakeContacts() {
-  console.log('generating fake contacts');
-
-  contactsDB.readWrite([ contactsStoreName ], function(tx) {
-      for (var i = 0, n = 10; i < n; i++) {
-          var name = "1";
-          var email = "e";
-
-          var contact = {
-              name: name,
-              email: email
-          };
-
-          tx.objectStore(contactsStoreName).put(contact);
-
-          addContactToTable(contact);
-      }
-  }, function() {
-      console.log('done generating fake contacts');
-  });
-}
-
-loadData {
-
-  createFakeContacts();
-};
-
-
-document.getElementById('deleteButton').onclick = function (e) {
-  e.preventDefault();
-
-  console.log('deleting');
-
-  DB.deleteDatabase(databaseName, function () {
-    console.log('deleted');
-  });
-};
