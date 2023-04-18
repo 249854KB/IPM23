@@ -134,6 +134,17 @@ function loadData() {
 
     console.log('Printed row');
     cursor.continue();
+    
+  };
+  const DBDeleteRequest = window.indexedDB.deleteDatabase("IndexedDB");
+
+  DBDeleteRequest.onerror = (event) => {
+    console.error("Error deleting database.");
+  };
+  
+  DBDeleteRequest.onsuccess = (event) => {
+    console.log("Database deleted successfully");
+  
   };
 };
 
