@@ -1,8 +1,8 @@
 // JavaScript
 var liczba = 1
-
-const DBOpenRequest = indexedDB.open('IndexedDB', 3);
 let db; //Info about database
+const DBOpenRequest = indexedDB.open('IndexedDB', 3);
+
 DBOpenRequest.onerror = (event) => {
   console.log("Error opening database");
 };
