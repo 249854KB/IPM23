@@ -1,8 +1,8 @@
 // JavaScript
 var liczba = 1
 
-const DBOpenRequest = window.indexedDB.open('IndexedDB', 10);
-let db //Info about database
+const DBOpenRequest = indexedDB.open('IndexedDB', 3);
+let db; //Info about database
 DBOpenRequest.onerror = (event) => {
   console.log("Error opening database");
 };
@@ -36,9 +36,8 @@ DBOpenRequest.onupgradeneeded = (event) => {
   console.log("Created object store.");
 };
 
-function saveData(e) {
-  // Prevent default, as we don't want the form to submit in the conventional way
-  //e.preventDefault();
+function saveData() {
+//clearDB("IndexedDB");
 
   var table = document.getElementById("clients_data_table");
   for (var i = 1, row; row = table.rows[i]; i++) {
@@ -99,8 +98,8 @@ function loadData() {
   // taskList.removeChild(taskList.lastChild);
   //  }
   var table = document.getElementById("clients_data_table");
-  while(table.rows.length > 0) {
-    table.deleteRow(0);
+  while(table.rows.length > 1) {
+    table.deleteRow(1);
   }
   // Open our object store and then get a cursor list of all the different data items in the IDB to iterate through
   const objectStore = db.transaction('IndexedDB').objectStore('IndexedDB');
@@ -136,16 +135,7 @@ function loadData() {
     cursor.continue();
     
   };
-  const DBDeleteRequest = window.indexedDB.deleteDatabase("IndexedDB");
 
-  DBDeleteRequest.onerror = (event) => {
-    console.error("Error deleting database.");
-  };
-  
-  DBDeleteRequest.onsuccess = (event) => {
-    console.log("Database deleted successfully");
-  
-  };
 };
 
 
@@ -241,3 +231,17 @@ function generateDataAndAppend() {
   toTable();
 }
 
+
+function clearDB(name)
+{
+  const DBDeleteRequest = indexedDB.deleteDatabase(name);
+
+  DBDeleteRequest.onerror = (event) => {
+    console.error("Error deleting database.");
+  };
+  
+  DBDeleteRequest.onsuccess = (event) => {
+    console.log("Database deleted successfully");
+  
+  };
+}
