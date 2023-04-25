@@ -88,10 +88,7 @@ function saveData() {
 //Loading data
 function loadData() {
   // First clear the content of the task list so that you don't get a huge long list of duplicate stuff each time
-  // the display is updated.
-  //while (taskList.firstChild) {
-  // taskList.removeChild(taskList.lastChild);
-  //  }
+
   var table = document.getElementById("clients_data_table");
   while(table.rows.length > 1) {
     table.deleteRow(1);
@@ -123,6 +120,8 @@ function loadData() {
     c.innerHTML = nip;
     c = r.insertCell(5);
     c.innerHTML = phone;
+    c = r.insertCell(6);
+    c.innerHTML =  "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button>";
 
     // continue on to the next item in the cursor
 
@@ -153,13 +152,13 @@ function toTable() {
   c = r.insertCell(5);
   c.innerHTML = document.getElementById("phone").value;
   c = r.insertCell(6);
-  c.innerHTML =  "<button class='delete_row' onclick=\"delete_row()\"  >Delete</button>";
+  c.innerHTML =  "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button>";
   
 }
 
-function delete_row(row){
-  var t = document.getElementById('clients_data_table');
-  var r = t.deleteRow(-1);
+function delete_row(btn){
+  var r = btn.parentNode.parentNode;
+  r.parentNode.removeChild(r);
 }
 function generateDataAndAppend() {
   if (liczba == 1) {
