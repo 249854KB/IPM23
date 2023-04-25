@@ -140,6 +140,7 @@ function toTable() {
   var t = document.getElementById('clients_data_table');
   var r = t.insertRow(-1);
   var c = r.insertCell(0);
+
   c.innerHTML = document.getElementById("firstname").value;
   c = r.insertCell(1);
   c.innerHTML = document.getElementById("lastname").value;
@@ -152,10 +153,14 @@ function toTable() {
   c = r.insertCell(5);
   c.innerHTML = document.getElementById("phone").value;
   c = r.insertCell(6);
-  c.innerHTML =  "<button class='delete_row' >Delete</button>";;
+  c.innerHTML =  "<button class='delete_row' onclick=\"delete_row()\"  >Delete</button>";
   
 }
 
+function delete_row(row){
+  var t = document.getElementById('clients_data_table');
+  var r = t.deleteRow(-1);
+}
 function generateDataAndAppend() {
   if (liczba == 1) {
     document.getElementById("firstname").value = "kacper";
