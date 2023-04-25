@@ -151,6 +151,8 @@ function toTable() {
   c.innerHTML = document.getElementById("nip").value;
   c = r.insertCell(5);
   c.innerHTML = document.getElementById("phone").value;
+  c = r.insertCell(6);
+  c.innerHTML = document.getElementById("phone").value;
 
 }
 
