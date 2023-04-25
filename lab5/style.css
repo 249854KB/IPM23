@@ -60,7 +60,7 @@ button {
 }
 table {
   align-items: center;
-  width: 700px;
+  width: 800px;
   table-layout: fixed;       
   overflow: hidden;
   word-break: break-all;
