@@ -168,11 +168,22 @@ function up_row(btn) {
 
     parent.insertBefore(rows[r], rows[r - 1])
   }
+  else{
+    parent.insertBefore(rows[r], rows[rows.length])
+  }
 }
 
 function down_row(btn) {
-  var r = btn.parentNode.parentNode;
-  r.parentNode.removeChild(r);
+  var r = btn.parentNode.parentNode.rowIndex;
+  var rows = document.getElementById('clients_data_table').rows,
+    parent = rows[r].parentNode;
+  if (r < rows.length -1) {
+    parent.insertBefore(rows[r+1], rows[r])
+  }
+  else
+  {
+    parent.insertBefore(rows[r], rows[1])
+  }
 }
 function generateDataAndAppend() {
   if (liczba == 1) {
