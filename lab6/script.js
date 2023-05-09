@@ -37,7 +37,7 @@ DBOpenRequest.onupgradeneeded = (event) => {
 };
 
 function saveData() {
-//clearDB("IndexedDB");
+  //clearDB("IndexedDB");
 
   var table = document.getElementById("clients_data_table");
   for (var i = 1, row; row = table.rows[i]; i++) {
@@ -50,13 +50,13 @@ function saveData() {
     var vnip = row.cells[4].innerHTML;
     var vphone = row.cells[5].innerHTML;
 
-    
+
 
     // Grab the values entered into the form fields and store them in an object ready for being inserted into the IndexedDB
     const newItem = [
       { id: i, firstname: vfirstname, lastname: vlastname, email: vemail, zip: vzip, nip: vnip, phone: vphone },
     ];
-    
+
     // Open a read/write DB transaction, ready for adding the data
     const transaction = db.transaction(['IndexedDB'], 'readwrite');
 
@@ -90,7 +90,7 @@ function loadData() {
   // First clear the content of the task list so that you don't get a huge long list of duplicate stuff each time
 
   var table = document.getElementById("clients_data_table");
-  while(table.rows.length > 1) {
+  while (table.rows.length > 1) {
     table.deleteRow(1);
   }
   // Open our object store and then get a cursor list of all the different data items in the IDB to iterate through
@@ -121,12 +121,12 @@ function loadData() {
     c = r.insertCell(5);
     c.innerHTML = phone;
     c = r.insertCell(6);
-    c.innerHTML ="<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button> <button class='move_up' onclick=\"up_row(this)\"  >Up</button> <button class='move_down' onclick=\"down_row(this)\"  >Down</button>";
+    c.innerHTML = "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button> <button class='move_up' onclick=\"up_row(this)\"  >Up</button> <button class='move_down' onclick=\"down_row(this)\"  >Down</button>";
     // continue on to the next item in the cursor
 
     console.log('Printed row');
     cursor.continue();
-    
+
   };
 
 };
@@ -151,26 +151,26 @@ function toTable() {
   c = r.insertCell(5);
   c.innerHTML = document.getElementById("phone").value;
   c = r.insertCell(6);
-  c.innerHTML =  "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button> <button class='move_up' onclick=\"up_row(this)\"  >Up</button> <button class='move_down' onclick=\"down_row(this)\"  >Down</button>";
-  
+  c.innerHTML = "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button> <button class='move_up' onclick=\"up_row(this)\"  >Up</button> <button class='move_down' onclick=\"down_row(this)\"  >Down</button>";
+
 }
 
-function delete_row(btn){
+function delete_row(btn) {
   var r = btn.parentNode.parentNode;
   r.parentNode.removeChild(r);
 }
 
-function up_row(btn){
-  var r = btn.parentNode.parentNode;
-  var rows = document.getElementById('clients_data_table').rows;
-  if(r>1)
-  {
+function up_row(btn) {
+  var r = btn.parentNode.parentNode.rowIndex;
+  var rows = document.getElementById('clients_data_table').rows,
     parent = rows[r].parentNode;
-    parent.insertBefore(rows[r],rows[r-1])
+  if (r > 1) {
+
+    parent.insertBefore(rows[r], rows[r - 1])
   }
 }
 
-function down_row(btn){
+function down_row(btn) {
   var r = btn.parentNode.parentNode;
   r.parentNode.removeChild(r);
 }
@@ -247,22 +247,20 @@ function generateDataAndAppend() {
 }
 
 
-function clearDB(name)
-{
+function clearDB(name) {
   const DBDeleteRequest = indexedDB.deleteDatabase(name);
 
   DBDeleteRequest.onerror = (event) => {
     console.error("Error deleting database.");
   };
-  
+
   DBDeleteRequest.onsuccess = (event) => {
     console.log("Database deleted successfully");
-  
+
   };
 }
 
-function clearDBStore(storename)
-{
+function clearDBStore(storename) {
   const transaction = db.transaction(storename, "readwrite");
   const objectStore = transaction.objectStore(storename);
   const objectStoreRequest = objectStore.clear();
