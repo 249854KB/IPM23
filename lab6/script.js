@@ -37,7 +37,9 @@ DBOpenRequest.onupgradeneeded = (event) => {
 };
 
 function saveData() {
-  //clearDB("IndexedDB");
+
+  console.log("Aha niby uswam ale nie weim");
+  clearDBStore('IndexedDB');
 
   var table = document.getElementById("clients_data_table");
   for (var i = 1, row; row = table.rows[i]; i++) {
@@ -255,20 +257,6 @@ function generateDataAndAppend() {
   }
   liczba = liczba + 1;
   toTable();
-}
-
-
-function clearDB(name) {
-  const DBDeleteRequest = indexedDB.deleteDatabase(name);
-
-  DBDeleteRequest.onerror = (event) => {
-    console.error("Error deleting database.");
-  };
-
-  DBDeleteRequest.onsuccess = (event) => {
-    console.log("Database deleted successfully");
-
-  };
 }
 
 function clearDBStore(storename) {
