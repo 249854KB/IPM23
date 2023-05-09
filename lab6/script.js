@@ -159,6 +159,16 @@ function delete_row(btn){
   var r = btn.parentNode.parentNode;
   r.parentNode.removeChild(r);
 }
+
+function up_row(btn){
+  var r = btn.parentNode.parentNode;
+  r.parentNode.removeChild(r);
+}
+
+function down_row(btn){
+  var r = btn.parentNode.parentNode;
+  r.parentNode.removeChild(r);
+}
 function generateDataAndAppend() {
   if (liczba == 1) {
     document.getElementById("firstname").value = "kacper";
