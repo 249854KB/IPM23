@@ -121,8 +121,7 @@ function loadData() {
     c = r.insertCell(5);
     c.innerHTML = phone;
     c = r.insertCell(6);
-    c.innerHTML =  "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button>";
-
+    c.innerHTML ="<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button> <button class='move_up' onclick=\"up_row(this)\"  >Up</button> <button class='move_down' onclick=\"down_row(this)\"  >Down</button>";
     // continue on to the next item in the cursor
 
     console.log('Printed row');
@@ -152,7 +151,7 @@ function toTable() {
   c = r.insertCell(5);
   c.innerHTML = document.getElementById("phone").value;
   c = r.insertCell(6);
-  c.innerHTML =  "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button>";
+  c.innerHTML =  "<button class='delete_row' onclick=\"delete_row(this)\"  >Delete</button> <button class='move_up' onclick=\"up_row(this)\"  >Up</button> <button class='move_down' onclick=\"down_row(this)\"  >Down</button>";
   
 }
 
