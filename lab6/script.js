@@ -162,7 +162,12 @@ function delete_row(btn){
 
 function up_row(btn){
   var r = btn.parentNode.parentNode;
-  r.parentNode.removeChild(r);
+  var rows = document.getElementById('clients_data_table').rows;
+  if(r>1)
+  {
+    parent = rows[r].parentNode;
+    parent.insertBefore(rows[r],rows[r-1])
+  }
 }
 
 function down_row(btn){
