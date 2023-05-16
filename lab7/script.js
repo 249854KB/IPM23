@@ -162,6 +162,15 @@ function delete_row(btn) {
   r.parentNode.removeChild(r);
 }
 
+function edit_row(btn)
+{
+  document.getElementById("accept").disabled = false;
+}
+
+acceptEdit()
+{
+  document.getElementById("accept").disabled = false;
+}
 function up_row(btn) {
   var r = btn.parentNode.parentNode.rowIndex;
   var rows = document.getElementById('clients_data_table').rows,
@@ -261,6 +270,7 @@ function generateData() {
 
 function append()
 {
+  document.getElementById("accept").disabled = false;
   toTable();
 }
 
@@ -269,3 +279,4 @@ function clearDBStore(storename) {
   const objectStore = transaction.objectStore(storename);
   const objectStoreRequest = objectStore.clear();
 }
+
