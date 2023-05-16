@@ -187,7 +187,7 @@ function down_row(btn) {
     parent.insertBefore(rows[r], rows[1])
   }
 }
-function generate() {
+function generateData() {
   if (liczba == 1) {
     document.getElementById("firstname").value = "kacper";
     document.getElementById("lastname").value = "Banek";
