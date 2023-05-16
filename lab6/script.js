@@ -187,7 +187,7 @@ function down_row(btn) {
     parent.insertBefore(rows[r], rows[1])
   }
 }
-function generateDataAndAppend() {
+function generate() {
   if (liczba == 1) {
     document.getElementById("firstname").value = "kacper";
     document.getElementById("lastname").value = "Banek";
@@ -256,6 +256,11 @@ function generateDataAndAppend() {
     liczba = 0;
   }
   liczba = liczba + 1;
+ 
+}
+
+function append()
+{
   toTable();
 }
 
