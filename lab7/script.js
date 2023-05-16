@@ -164,12 +164,21 @@ function delete_row(btn) {
 
 function edit_row(btn)
 {
+  var r = btn.parentNode.parentNode.rowIndex;
+  var rows = document.getElementById('clients_data_table').rows;
+  
   document.getElementById("accept").disabled = false;
+  document.getElementById("firstname").value = rows[r].cells[0].innerHTML;
+  document.getElementById("email").value = rows[r].cells[2].innerHTML;
+  document.getElementById("lastname").value = rows[r].cells[1].innerHTML;
+  document.getElementById("zip").value = rows[r].cells[3].innerHTML;
+  document.getElementById("nip").value = rows[r].cells[4].innerHTML
+  document.getElementById("phone").value = rows[r].cells[5].innerHTML;
 }
 
-acceptEdit()
+function acceptEdit()
 {
-  document.getElementById("accept").disabled = false;
+  document.getElementById("accept").disabled = true;
 }
 function up_row(btn) {
   var r = btn.parentNode.parentNode.rowIndex;
@@ -270,7 +279,7 @@ function generateData() {
 
 function append()
 {
-  document.getElementById("accept").disabled = false;
+  document.getElementById("accept").disabled = true;
   toTable();
 }
 
