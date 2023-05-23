@@ -77,3 +77,17 @@ td {
   border: solid black 1px;
   
 }
+
+#search {
+  background-image: url('https://img.icons8.com/color/search');
+  background-size: 50px;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  width: 50%;
+  font-size: 20px;
+  padding: 11px 20px 12px 100px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  border-radius:10px;
+}
+

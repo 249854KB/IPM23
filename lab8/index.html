@@ -64,10 +64,14 @@
         <button type="button" id="save_data" onclick="saveData()">Zapisz</button>
         <button type="button" id="load_data" onclick="loadData()">Wczytaj</button>
         <button type="button" id="accept" onclick="acceptEdit()" disabled >Akceptuj</button>
-        
       </li>
     </ul>
+  
   </form>
+  <h2 style="text-align: center;">
+    <input type="text" id="search" onkeyup="searchData()" placeholder="Wyszukaj" title="Type in a name" >
+  </h2>
+ 
     <h1 style="text-align: center;">Klienci</h1>
     <ul>
       <table id="clients_data_table">
