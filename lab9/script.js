@@ -299,14 +299,14 @@ function clearDBStore(storename) {
 function searchData() {
   var input, filter, table, tr, td, i, txtValue, flag;
   input = document.getElementById("search");
-  const myArray = input.textContent.split(" ");
+  const myArray = input.value.split(" ");
 
   table = document.getElementById("clients_data_table");
   tr = table.getElementsByTagName("tr");
-  for (z = 0; z < myArray.length; z++) {
-    filter = myArray[z].toUpperCase();
-    for (i = 1; i < tr.length + 1; i++) {
-      flag = false
+  for (i = 1; i < tr.length; i++) {
+    flag = false
+    for (z = 0; z < myArray.length; z++) {
+      filter = myArray[z].toUpperCase();
       for (j = 0; j < 6; j++) {
         td = tr[i].getElementsByTagName("td")[j];
         if (td) {
@@ -323,4 +323,5 @@ function searchData() {
       }
     }
   }
+
 }
