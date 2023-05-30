@@ -304,9 +304,10 @@ function searchData() {
   table = document.getElementById("clients_data_table");
   tr = table.getElementsByTagName("tr");
   for (i = 1; i < tr.length; i++) {
-    flag = false
-    for (z = 0; z < myArray.length; z++) {
+    var global_flag = true;
+    for (z = 0; z < myArray.length; z++) { //Jeśli dla chociaż jednego słowa flaga będzie false to nie wystawiaj
       filter = myArray[z].toUpperCase();
+      flag = false
       for (j = 0; j < 6; j++) {
         td = tr[i].getElementsByTagName("td")[j];
         if (td) {
@@ -316,11 +317,14 @@ function searchData() {
           }
         }
       }
-      if (flag == true) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+      if (flag == false) {
+        global_flag = false;
       }
+    }
+    if (global_flag == true) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
     }
   }
 
