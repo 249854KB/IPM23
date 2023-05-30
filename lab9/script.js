@@ -299,24 +299,28 @@ function clearDBStore(storename) {
 function searchData() {
   var input, filter, table, tr, td, i, txtValue, flag;
   input = document.getElementById("search");
-  filter = input.value.toUpperCase();
+  const myArray = input.textContent.split(" ");
+
   table = document.getElementById("clients_data_table");
   tr = table.getElementsByTagName("tr");
-  for (i = 1; i < tr.length+1; i++) {
-    flag = false
-    for (j = 0; j < 6; j++) {
-      td = tr[i].getElementsByTagName("td")[j];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          flag=true
-        } 
+  for (z = 0; z < myArray.length; z++) {
+    filter = myArray[z].toUpperCase();
+    for (i = 1; i < tr.length + 1; i++) {
+      flag = false
+      for (j = 0; j < 6; j++) {
+        td = tr[i].getElementsByTagName("td")[j];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            flag = true;
+          }
+        }
       }
-    }
-    if (flag == true) {
-      tr[i].style.display = "";
-    } else {
-      tr[i].style.display = "none";
+      if (flag == true) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
     }
   }
 }
