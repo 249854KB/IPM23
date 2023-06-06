@@ -329,3 +329,21 @@ function searchData() {
   }
 
 }
+
+function friutAdder() {
+
+  var nowy_owoc, sel;
+  nowy_owoc = document.getElementById("fruitName");
+  sel = document.getElementById("fruitsList");
+
+
+  if (nowy_owoc.value) {
+    let option = document.createElement("option");
+    option.setAttribute('value', nowy_owoc.value);
+
+    let optionText = document.createTextNode(nowy_owoc.value);
+    option.appendChild(optionText);
+
+    sel.appendChild(option);
+  }
+}
