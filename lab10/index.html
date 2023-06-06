@@ -1,11 +1,11 @@
 <html>
 
 <head>
- <link rel="stylesheet" href="style.css"> 
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <script src="script.js"></script> 
+  <script src="script.js"></script>
   <h1 style="text-align: center;">Labolatorium</h1>
   <form>
     <ul>
@@ -34,9 +34,9 @@
         <input id="phone" type="number"></input>
       </li>
     </ul>
-    </form>
-    <form>
-      <ul>
+  </form>
+  <form>
+    <ul>
       <li>
         <label for="ipv4">IPV4</label>
         <input id="ipv4" type="text" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></input>
@@ -51,7 +51,8 @@
       </li>
       <li>
         <label for="winpath2">Ścieżka windows allcase</label>
-        <input id="winpath2" type="text" pattern="^([a-zA-Z]:\\)([[Ww][Ii][Nn][Dd][Oo][Ww][Ss]|[Ww][Ii][Nn][Nn][Tt]|[Ww][Ii][Nn]|[Dd][Oo][Ss]|[Mm][Ss][Dd][Oo][Ss])(\\[a-zA-Z0-9]+){0,}$"></input>
+        <input id="winpath2" type="text"
+          pattern="^([a-zA-Z]:\\)([[Ww][Ii][Nn][Dd][Oo][Ww][Ss]|[Ww][Ii][Nn][Nn][Tt]|[Ww][Ii][Nn]|[Dd][Oo][Ss]|[Mm][Ss][Dd][Oo][Ss])(\\[a-zA-Z0-9]+){0,}$"></input>
       </li>
       <li>
         <label for="linuxpath">Ścieżka Linux</label>
@@ -63,26 +64,45 @@
         <button type="button" id="add_data" onclick="append()">Dodaj</button>
         <button type="button" id="save_data" onclick="saveData()">Zapisz</button>
         <button type="button" id="load_data" onclick="loadData()">Wczytaj</button>
-        <button type="button" id="accept" onclick="acceptEdit()" disabled >Akceptuj</button>
+        <button type="button" id="accept" onclick="acceptEdit()" disabled>Akceptuj</button>
       </li>
     </ul>
-  
+
+  </form>
+
+  <form>
+    <ul>
+      <li>
+        <label for="fruitsList">Owoce</label>
+        <select name="Owoce" id="fruitsList">
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="mercedes">Mercedes</option>
+          <option value="audi">Audi</option>
+        </select>
+      </li>
+      <li>
+        <button type="button" id="addFruit" onclick="friutAdder()">Dodaj owoc</button>
+        <input id="firstname" type="text" id="fruitName"></input>
+      </li>
+    </ul>
   </form>
   <h2 style="text-align: center;">
-    <input type="text" id="search" onkeyup="searchData()" placeholder="Wyszukaj ..." title="Type in a name" >
+    <input type="text" id="search" onkeyup="searchData()" placeholder="Wyszukaj ..." title="Type in a name">
   </h2>
- 
-    <h1 style="text-align: center;">Klienci</h1>
-    <ul>
-      <table id="clients_data_table">
-          <th>Imię</th>
-          <th>Nazwisko</th>
-          <th>Email</th>
-          <th>Kod pocztowy</th>
-          <th>Nip</th>
-          <th>Telefon</th>
-          <th>Actions</th>
-      </table> 
-    </ul>
+
+  <h1 style="text-align: center;">Klienci</h1>
+  <ul>
+    <table id="clients_data_table">
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Email</th>
+      <th>Kod pocztowy</th>
+      <th>Nip</th>
+      <th>Telefon</th>
+      <th>Actions</th>
+    </table>
+  </ul>
 </body>
+
 </html>
