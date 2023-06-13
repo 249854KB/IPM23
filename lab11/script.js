@@ -347,3 +347,12 @@ function friutAdder() {
     sel.appendChild(option);
   }
 }
+
+function friutDeleter() {
+
+  var nowy_owoc, sel;
+  sel = document.getElementById("fruitsList");
+
+  sel.remove(sel.selectedIndex);
+
+}
