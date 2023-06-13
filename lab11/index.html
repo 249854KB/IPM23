@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <script src="script.js"></script>
+  <h1 style="text-align: center;">Labolatorium</h1>
+  <form>
+    <ul>
+      <li>
+        <label for="firstname">Imię</label>
+        <input id="firstname" type="text"></input>
+      </li>
+      <li>
+        <label for="lastname">Nazwisko</label>
+        <input id="lastname" type="text"></input>
+      </li>
+      <li>
+        <label for="email">Mail</label>
+        <input id="email" type="email"></input>
+      </li>
+      <li>
+        <label for="zip">Kod pocztowy</label>
+        <input id="zip" type="text" pattern="^\d{2}-\d{3}$"></input>
+      </li>
+      <li>
+        <label for="nip">NIP</label>
+        <input id="nip" pattern="^((\d{3}[- ]\d{3}[- ]\d{2}[- ]\d{2})|(\d{3}[- ]\d{2}[- ]\d{2}[- ]\d{3}))$"></input>
+      </li>
+      <li>
+        <label for="phone">Telefon</label>
+        <input id="phone" type="number"></input>
+      </li>
+    </ul>
+  </form>
+  <form>
+    <ul>
+      <li>
+        <label for="ipv4">IPV4</label>
+        <input id="ipv4" type="text" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></input>
+      </li>
+      <li>
+        <label for="webpage">Strona</label>
+        <input id="webpage" type="url"></input>
+      </li>
+      <li>
+        <label for="winpath1">Ścieżka windows lowercase</label>
+        <input id="winpath1" type="text" pattern="^([a-z]:\\)(windows|winnt|win|dos|msdos)(\\[a-z0-9]+){0,}$"></input>
+      </li>
+      <li>
+        <label for="winpath2">Ścieżka windows allcase</label>
+        <input id="winpath2" type="text"
+          pattern="^([a-zA-Z]:\\)([[Ww][Ii][Nn][Dd][Oo][Ww][Ss]|[Ww][Ii][Nn][Nn][Tt]|[Ww][Ii][Nn]|[Dd][Oo][Ss]|[Mm][Ss][Dd][Oo][Ss])(\\[a-zA-Z0-9]+){0,}$"></input>
+      </li>
+      <li>
+        <label for="linuxpath">Ścieżka Linux</label>
+        <input id="linuxpath" type="text" pattern="^(/etc)(\/[a-zA-Z0-9]+){0,}$"></input>
+      </li>
+      <!-- the content goes here -->
+      <li class="button">
+        <button type="button" id="generate" onclick="generateData()">Generuj</button>
+        <button type="button" id="add_data" onclick="append()">Dodaj</button>
+        <button type="button" id="save_data" onclick="saveData()">Zapisz</button>
+        <button type="button" id="load_data" onclick="loadData()">Wczytaj</button>
+        <button type="button" id="accept" onclick="acceptEdit()" disabled>Akceptuj</button>
+      </li>
+    </ul>
+
+  </form>
+
+  <form>
+    <ul>
+      <li>
+        <label for="fruitsList">Owoce</label>
+        <select name="Owoce" id="fruitsList">
+        </select>
+      </li>
+      <li style="text-align: center;">
+        <button type="button" id="addFruit" onclick="friutAdder()">Dodaj owoc</button>
+        <input type="text" id="fruitName"></input>
+      </li>
+    </ul>
+  </form>
+  <h2 style="text-align: center;">
+    <input type="text" id="search" onkeyup="searchData()" placeholder="Wyszukaj ..." title="Type in a name">
+  </h2>
+
+  <h1 style="text-align: center;">Klienci</h1>
+  <ul>
+    <table id="clients_data_table">
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Email</th>
+      <th>Kod pocztowy</th>
+      <th>Nip</th>
+      <th>Telefon</th>
+      <th>Actions</th>
+    </table>
+  </ul>
+</body>
+
+</html>
